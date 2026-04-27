@@ -14,6 +14,10 @@ export async function requireSession() {
   return session;
 }
 
+export async function requireUser() {
+  return requireSession();
+}
+
 export async function requireAdminSession() {
   const session = await requireSession();
   if (session.user.role !== "ADMIN") {

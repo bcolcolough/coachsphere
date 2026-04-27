@@ -1,4 +1,8 @@
+import { redirect } from "next/navigation";
+
 export default function HomePage() {
+  redirect("/home");
+
   return (
     <main className="mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center px-6 text-center">
       <p className="mb-4 rounded-full border border-slate-800 bg-slate-950 px-4 py-2 text-sm font-medium text-cyan-200">
