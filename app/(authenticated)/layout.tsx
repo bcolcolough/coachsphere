@@ -22,7 +22,7 @@ export default async function AuthenticatedLayout({
     <div className="min-h-screen bg-[#07070a] text-white">
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#07070a]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/home" className="flex items-center gap-3">
             <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-violet-500 text-lg font-black">
               C
             </span>
