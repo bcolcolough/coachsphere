@@ -1,0 +1,61 @@
+{
+  "name": "coachsphere",
+  "version": "1.0.0",
+  "description": "Internal podcast and video channel for company-only learning content.",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:studio": "prisma studio"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcolcolough/coachsphere.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/bcolcolough/coachsphere/issues"
+  },
+  "homepage": "https://github.com/bcolcolough/coachsphere#readme",
+  "dependencies": {
+    "@auth/prisma-adapter": "^2.11.2",
+    "@prisma/client": "^7.8.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.11.0",
+    "next": "^16.2.4",
+    "next-auth": "^4.24.14",
+    "nodemailer": "^8.0.7",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tailwind-merge": "^3.5.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.6.0",
+    "@types/nodemailer": "^8.0.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.4",
+    "jsdom": "^29.1.0",
+    "prisma": "^7.8.0",
+    "tailwindcss": "^4.2.4",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
+  }
+}

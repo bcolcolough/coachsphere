@@ -1,0 +1,21 @@
+node_modules/
+.next/
+out/
+dist/
+coverage/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local persistence and private uploaded media
+.data/
+prisma/dev.db
+prisma/dev.db-*
+
+# Logs and editor noise
+*.log
+.DS_Store
+.idea/
+.vscode/
