@@ -34,7 +34,7 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-8">
-      <Link className="text-sm font-medium text-cyan-200 hover:text-cyan-100" href="/">
+      <Link className="text-sm font-medium text-cyan-200 hover:text-cyan-100" href="/home">
         ← Back to the show
       </Link>
       <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">

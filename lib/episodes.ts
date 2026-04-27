@@ -167,8 +167,16 @@ export async function upsertEpisodeFromPayload({
   }
 
   return prisma.$transaction(async (tx) => {
+    const existingEpisode = episodeId
+      ? await tx.episode.findUnique({
+          where: { id: episodeId },
+          select: { publishedAt: true },
+        })
+      : null;
     const publishedAt =
-      payload.status === EpisodeStatus.PUBLISHED ? new Date() : null;
+      payload.status === EpisodeStatus.PUBLISHED
+        ? (existingEpisode?.publishedAt ?? new Date())
+        : null;
     const chapterCreates = [...payload.chapters]
       .sort((a, b) => a.startSeconds - b.startSeconds)
       .map((chapter, index) => ({
@@ -187,7 +195,7 @@ export async function upsertEpisodeFromPayload({
             showNotes: payload.showNotes || null,
             durationSeconds: payload.durationSeconds,
             status: payload.status,
-            publishedAt: payload.status === EpisodeStatus.PUBLISHED ? { set: publishedAt } : null,
+            publishedAt,
             chapters: {
               deleteMany: {},
               create: chapterCreates,

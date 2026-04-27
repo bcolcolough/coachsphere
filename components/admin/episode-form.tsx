@@ -135,8 +135,12 @@ export function EpisodeForm({ episode }: EpisodeFormProps) {
       if (!response.ok) {
         throw new Error(payload.error ?? "Unable to save episode");
       }
+      const episodeId = payload.episode?.id ?? payload.id;
       if (nextStatus === "PUBLISHED") {
-        const publishResponse = await fetch(`/api/admin/episodes/${payload.episode.id}/publish`, {
+        if (!episodeId) {
+          throw new Error("Saved episode, but the response did not include an episode id");
+        }
+        const publishResponse = await fetch(`/api/admin/episodes/${episodeId}/publish`, {
           method: "POST",
         });
         if (!publishResponse.ok) {
