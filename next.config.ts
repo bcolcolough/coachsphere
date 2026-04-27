@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "512mb",
     },
   },
+  outputFileTracingExcludes: {
+    "*": [".git/**/*", ".data/**/*", "dev.db", "prisma/dev.db"],
+  },
 };
 
 export default nextConfig;
