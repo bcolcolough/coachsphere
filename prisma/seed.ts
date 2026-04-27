@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { UserRole } from "@prisma/client";
 import { uploadRoot } from "@/lib/media";
@@ -9,6 +9,8 @@ async function seed() {
 
   const thumbKey = "seed/coachsphere-thumb.svg";
   const thumbPath = path.join(uploadRoot, thumbKey);
+  const audioKey = "seed/welcome-tone.m4a";
+  const audioPath = path.join(uploadRoot, audioKey);
   await mkdir(path.dirname(thumbPath), { recursive: true });
   await writeFile(
     thumbPath,
@@ -27,6 +29,11 @@ async function seed() {
     </svg>`,
     "utf8",
   );
+  const m4aStub = Buffer.from(
+    "AAAAHGZ0eXBpc29tAAACAGlzb21pc28ybXA0MQAAAAhmcmVl",
+    "base64",
+  );
+  await writeFile(audioPath, m4aStub);
 
   const admin = await prisma.user.upsert({
     where: { email: "admin@anysphere.co" },
@@ -69,7 +76,14 @@ async function seed() {
             kind: "THUMBNAIL",
             storageKey: thumbKey,
             mimeType: "image/svg+xml",
-            sizeBytes: Buffer.byteLength(await (await import("node:fs/promises")).readFile(thumbPath)),
+            sizeBytes: (await readFile(thumbPath)).byteLength,
+          },
+          {
+            kind: "AUDIO",
+            storageKey: audioKey,
+            mimeType: "audio/mp4",
+            sizeBytes: m4aStub.byteLength,
+            durationSeconds: 905,
           },
         ],
       },

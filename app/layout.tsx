@@ -5,10 +5,15 @@ export const metadata: Metadata = {
   title: "CoachSphere",
   description: "Internal podcast and video channel for go-to-market teams",
   applicationName: "CoachSphere",
+  manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "CoachSphere",
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
   },
 };
 
