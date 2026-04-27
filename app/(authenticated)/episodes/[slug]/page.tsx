@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { EpisodePlayer } from "@/components/episode-player";
 import { getEpisodeBySlug } from "@/lib/episodes";
 import { formatDuration } from "@/lib/format";
 
@@ -28,6 +29,8 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
   }
 
   const thumbnail = episode.mediaAssets.find((asset) => asset.kind === "THUMBNAIL");
+  const audio = episode.mediaAssets.find((asset) => asset.kind === "AUDIO");
+  const video = episode.mediaAssets.find((asset) => asset.kind === "VIDEO");
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-8">
@@ -67,6 +70,15 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
           </p>
         </div>
       </section>
+      <EpisodePlayer
+        audio={audio}
+        chapters={episode.chapters}
+        episodeId={episode.id}
+        initialPositionSeconds={episode.playbackProgress[0]?.positionSeconds ?? 0}
+        thumbnailUrl={thumbnail ? `/api/media/${thumbnail.id}` : undefined}
+        title={episode.title}
+        video={video}
+      />
       <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
         <article className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6">
           <h2 className="text-xl font-semibold text-white">Episode notes</h2>
