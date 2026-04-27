@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { EpisodeListItem } from "@/lib/episodes";
 import { formatDuration, formatPublishDate } from "@/lib/format";
@@ -23,12 +22,11 @@ export function EpisodeCard({ episode }: { episode: EpisodeListItem }) {
     >
       <div className="relative aspect-video overflow-hidden rounded-2xl bg-slate-900">
         {thumbnail ? (
-          <Image
-            src={`/api/media/${thumbnail.id}`}
+          // eslint-disable-next-line @next/next/no-img-element -- Private authenticated media URLs should not be proxied through Next image optimization.
+          <img
             alt=""
-            fill
             className="object-cover transition duration-300 group-hover:scale-105"
-            sizes="(min-width: 640px) 180px, 100vw"
+            src={`/api/media/${thumbnail.id}`}
           />
         ) : (
           <div className="flex h-full items-center justify-center bg-gradient-to-br from-violet-600 to-cyan-500 text-3xl font-black">
