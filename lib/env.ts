@@ -23,6 +23,8 @@ export function getNumberEnv(name: string, fallback: number): number {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+export const envNumber = getNumberEnv;
+
 export function getAppUrl(): string {
   return (
     process.env.NEXTAUTH_URL ??

@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { mkdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-export const uploadRoot = path.join(process.cwd(), ".data", "uploads");
+export const uploadRoot = path.resolve(process.cwd(), process.env.UPLOAD_DIR ?? ".data/uploads");
 
 const safeExtensionByMime: Record<string, string> = {
   "image/jpeg": "jpg",
