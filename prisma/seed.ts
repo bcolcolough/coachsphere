@@ -55,9 +55,19 @@ async function seed() {
     },
   });
 
-  await prisma.episode.upsert({
+  const episode = await prisma.episode.upsert({
     where: { slug: "welcome-to-coachsphere" },
-    update: {},
+    update: {
+      title: "Welcome to CoachSphere",
+      subtitle: "A private channel for GTM learning loops",
+      description:
+        "A sample published episode showing the internal podcast/video experience. Upload MP4 or M4A media from the admin console to replace this placeholder.",
+      showNotes:
+        "This seeded episode demonstrates metadata, private thumbnails, chapters, and published visibility. Add real internal stories from the admin view.",
+      durationSeconds: 905,
+      status: "PUBLISHED",
+      createdById: admin.id,
+    },
     create: {
       slug: "welcome-to-coachsphere",
       title: "Welcome to CoachSphere",
@@ -94,6 +104,42 @@ async function seed() {
           { title: "What to publish next", startSeconds: 620, sortOrder: 2 },
         ],
       },
+    },
+  });
+
+  await prisma.mediaAsset.upsert({
+    where: { storageKey: thumbKey },
+    update: {
+      episodeId: episode.id,
+      kind: "THUMBNAIL",
+      mimeType: "image/svg+xml",
+      sizeBytes: (await readFile(thumbPath)).byteLength,
+    },
+    create: {
+      episodeId: episode.id,
+      kind: "THUMBNAIL",
+      storageKey: thumbKey,
+      mimeType: "image/svg+xml",
+      sizeBytes: (await readFile(thumbPath)).byteLength,
+    },
+  });
+
+  await prisma.mediaAsset.upsert({
+    where: { storageKey: audioKey },
+    update: {
+      episodeId: episode.id,
+      kind: "AUDIO",
+      mimeType: "audio/mp4",
+      sizeBytes: m4aStub.byteLength,
+      durationSeconds: 905,
+    },
+    create: {
+      episodeId: episode.id,
+      kind: "AUDIO",
+      storageKey: audioKey,
+      mimeType: "audio/mp4",
+      sizeBytes: m4aStub.byteLength,
+      durationSeconds: 905,
     },
   });
 }
